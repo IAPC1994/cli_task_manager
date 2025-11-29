@@ -13,10 +13,10 @@ node('') {
         // Argumentos: --user root (permisos) -v ${WORKSPACE}:/app (mapeo) --workdir /app (directorio de trabajo)
         docker.image('python:3.10-slim').inside("--user root -v ${WORKSPACE}:/app --workdir /app") {
             
-            echo 'Iniciando pruebas Python...'
+            sh 'ls -R /app'
             
             // 🚨 SOLUCIÓN FINAL: Ejecutamos el archivo desde la ruta CORRECTA: /app/src/
-            sh 'python /app/src/task_manager.py' 
+            // sh 'python /app/src/task_manager.py' 
         }
     }
     

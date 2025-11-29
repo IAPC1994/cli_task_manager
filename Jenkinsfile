@@ -14,7 +14,7 @@ node('') {
             echo 'Iniciando pruebas Python...'
             
             
-            sh 'python /app/src/task_manager.py' 
+            sh 'python /cli_task_manager/src/task_manager.py' 
         }
     }
     

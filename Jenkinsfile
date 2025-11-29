@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Ejecutando pruebas...'
                 
-                sh 'python app.py' 
+                sh 'python task_manager.py' 
             }
         }
         

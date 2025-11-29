@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker { 
             image 'python:3.10-slim' 
+            args '-v $PWD:/app'
         }
     }
 
@@ -16,7 +17,7 @@ pipeline {
             steps {
                 echo 'Ejecutando pruebas...'
                 
-                sh 'python task_manager.py' 
+                sh 'python /app/task_manager.py' 
             }
         }
         

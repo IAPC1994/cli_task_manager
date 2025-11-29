@@ -1,9 +1,13 @@
 pipeline {
     agent {
         docker { 
-            image 'python:3.10-slim' 
-            customWorkspace "/var/jenkins_home/workspace/${JOB_NAME}"
-            args "-v ${env.WORKSPACE}:/var/jenkins_home/workspace/${JOB_NAME}"
+            image 'python:3.10-slim'
+            
+            customWorkspace "/var/jenkins_home/workspace/${JOB_NAME}" 
+            
+            
+            
+            args '''-v ${env.WORKSPACE}:/var/jenkins_home/workspace/${JOB_NAME}'''
         }
     }
 

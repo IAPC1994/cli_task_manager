@@ -9,24 +9,23 @@ node('') {
     stage('Test') {
         echo 'Ejecutando pruebas en contenedor Docker...'
         
-        // Ejecuta el contenedor 'python:3.10-slim'
-        // CRUCIAL: Mapeamos el WORKSPACE del host a /app dentro del contenedor.
-        // Esto resuelve el problema de visibilidad de archivos (AccessDenied/No such file)
-        docker.image('python:3.10-slim').inside("-v ${WORKSPACE}:/app") {
+        // --- CAMBIO CRUCIAL: Agregar --user root al argumento 'inside' ---
+        // Esto le da permisos de escritura al proceso de Jenkins dentro del volumen montado.
+        docker.image('python:3.10-slim').inside("--user root -v ${WORKSPACE}:/app") {
             
             // Cambiamos el directorio de trabajo DENTRO del contenedor a /app
+            // El comando 'dir' ahora funcionará gracias a los permisos de root.
             dir('/app') {
                 echo 'Iniciando pruebas Python...'
                 
-                // Ejecutamos el script desde /app (que es el custom workspace)
+                // Ejecutamos el script
                 sh 'python task_manager.py' 
             }
         }
     }
     
-    // Etapa 3: Reporte (Manteniendo la estructura completa)
+    // Etapa 3: Reporte
     stage('Reporte') {
         echo 'Generando reporte (simulado)...'
-        // Puedes agregar aquí pasos futuros para generar reportes, enviar notificaciones, etc.
     }
 }

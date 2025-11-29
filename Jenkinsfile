@@ -9,15 +9,13 @@ node('') {
     stage('Test') {
         echo 'Ejecutando pruebas en contenedor Docker...'
         
-        // Mantenemos la configuración robusta para permisos y mapeo:
-        // --user root: Para anular problemas de permisos.
-        // -v ${WORKSPACE}:/app: Mapea el código del host a /app en el contenedor.
-        // --workdir /app: Define el directorio de trabajo, evitando el error de 'dir'.
+        // Mantenemos la configuración robusta para permisos y mapeo a /app
+        // Argumentos: --user root (permisos) -v ${WORKSPACE}:/app (mapeo) --workdir /app (directorio de trabajo)
         docker.image('python:3.10-slim').inside("--user root -v ${WORKSPACE}:/app --workdir /app") {
             
             echo 'Iniciando pruebas Python...'
             
-            // 🚨 SOLUCIÓN FINAL: Ejecutamos el archivo desde la ruta correcta, /app/src/
+            // 🚨 SOLUCIÓN FINAL: Ejecutamos el archivo desde la ruta CORRECTA: /app/src/
             sh 'python /app/src/task_manager.py' 
         }
     }

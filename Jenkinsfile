@@ -9,17 +9,14 @@ node('') {
     stage('Test') {
         echo 'Ejecutando pruebas en contenedor Docker...'
         
-        // El argumento 'inside()' ahora contiene la solución triple:
-        // 1. --user root: Para anular los problemas de permisos del host/kernel.
-        // 2. -v ${WORKSPACE}:/app: Mapea el código del host a /app en el contenedor.
-        // 3. --workdir /app: Le indica a Docker que el directorio de trabajo predeterminado es /app.
-        //    (Esto reemplaza la necesidad del comando 'dir' de Jenkins, evitando el AccessDeniedException).
+        // Mantenemos los argumentos de permisos y mapeo de volumen
         docker.image('python:3.10-slim').inside("--user root -v ${WORKSPACE}:/app --workdir /app") {
             
             echo 'Iniciando pruebas Python...'
             
-            // El comando sh se ejecuta directamente en /app (el working directory)
-            sh 'python task_manager.py' 
+            // --- CAMBIO CRUCIAL: Ejecutamos el script usando su ruta absoluta dentro del contenedor ---
+            // El archivo está en /app (gracias a -v), así evitamos el error de directorio de trabajo (-w)
+            sh 'python /app/task_manager.py' 
         }
     }
     

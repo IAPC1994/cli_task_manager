@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker { 
             image 'python:3.10-slim' 
-            args "-v ${env.WORKSPACE}:/app"
+            workingDirectory '/var/jenkins_home/workspace/Python-App-CI'
         }
     }
 
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Ejecutando pruebas...'
                 
-                sh 'python /app/task_manager.py'
+                sh 'python task_manager.py'
             }
         }
         

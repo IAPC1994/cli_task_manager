@@ -5,9 +5,7 @@ pipeline {
             
             customWorkspace "/var/jenkins_home/workspace/${JOB_NAME}" 
             
-            
-            
-            args '''-v ${env.WORKSPACE}:/var/jenkins_home/workspace/${JOB_NAME}'''
+            args "-v ${env.WORKSPACE}:/var/jenkins_home/workspace/${JOB_NAME}"
         }
     }
 

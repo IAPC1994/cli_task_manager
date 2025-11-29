@@ -19,7 +19,7 @@ node('') {
                 echo 'Iniciando la ejecución del script con PYTHONPATH configurado...'
                 
                 // 🚨 SOLUCIÓN FINAL: Ejecutamos el archivo usando su ruta absoluta confirmada: /app/src/task_manager.py
-                sh 'python /app/src/task_manager.py' 
+                sh 'python /app/src/main.py' 
             }
         }
     }

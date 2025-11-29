@@ -1,4 +1,4 @@
-node('master') {
+node('') {
     // 1. Clonar el código primero
     stage('Declarative: Checkout SCM') {
         checkout scm
